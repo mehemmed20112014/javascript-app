@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+    <title>fortune</title>
+</head>
+<script src="fortune.js"></script>
+
+<script>
+    function playGame() {
+  // 1. Choose a word
+  const words = ["apple", "banana", "orange", "grape", "peach"];
+  const word = words[Math.floor(Math.random() * words.length)];
+  const hiddenWord = Array(word.length).fill("_"); // _ _ _
+
+  // 2. Set lives
+  let lives = 5;
+
+  // 3. Game loop
+  while (lives > 0 && hiddenWord.includes("_")) {
+    // Show current progress
+    alert(`Word: ${hiddenWord.join(" ")}\nLives: ${lives}`);
+
+    const guess = prompt("Guess a letter:").toLowerCase();
+
+    if (!guess || guess.length !== 1) {
+      alert("Please enter a single letter!");
+      continue;
+    }
+
+    if (word.includes(guess)) {
+      // Correct guess → reveal letters
+      for (let i = 0; i < word.length; i++) {
+        if (word[i] === guess) {
+          hiddenWord[i] = guess;
+        }
+      }
+      alert("Correct!");
+    } else {
+      // Wrong guess → lose a life
+      lives--;
+      alert(`Wrong! You lost a life. Lives left: ${lives}`);
+    }
+  }
+
+  // 4. End game
+  if (!hiddenWord.includes("_")) {
+    alert(`🎉 You win! The word was "${word}".`);
+  } else {
+    alert(`😢 Game over! The word was "${word}".`);
+  }
+
+  // 5. Play again
+  if (confirm("Do you want to play again?")) {
+    playGame();
+  }
+}
+
+// Start game
+playGame();
+
+</script>
+</body>
+</html>
