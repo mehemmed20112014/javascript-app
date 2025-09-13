@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <head>
+        <title>hello</title>
+    </head>
+
+    <script src="events.js"></script>
+<script>
+    // Bank Account App
+const bankAccount = {
+  balance: 0,  // starting balance
+  transactions: [], // transaction history
+
+  // Deposit method
+  deposit(amount) {
+    if (amount > 0) {
+      this.balance += amount;
+      this.transactions.push({ type: "Deposit", amount: amount });
+      console.log(`Deposited: $${amount}`);
+    } else {
+      console.log("Deposit amount must be greater than 0.");
+    }
+  },
+
+  // Withdraw method
+  withdraw(amount) {
+    if (amount > 0) {
+      if (amount <= this.balance) {
+        this.balance -= amount;
+        this.transactions.push({ type: "Withdrawal", amount: amount });
+        console.log(`Withdrew: $${amount}`);
+      } else {
+        console.log("Insufficient funds!");
+      }
+    } else {
+      console.log("Withdrawal amount must be greater than 0.");
+    }
+  },
+
+  // Check balance
+  checkBalance() {
+    console.log(`Current Balance: $${this.balance}`);
+  },
+
+  // View transaction history
+  viewTransactionHistory() {
+    console.log("Transaction History:");
+    if (this.transactions.length === 0) {
+      console.log("No transactions yet.");
+    } else {
+      this.transactions.forEach((transaction, index) => {
+        console.log(
+          `${index + 1}. ${transaction.type} of $${transaction.amount}`
+        );
+      });
+    }
+  }
+};
+
+// Example usage:
+bankAccount.deposit(500);
+bankAccount.withdraw(200);
+bankAccount.checkBalance();
+bankAccount.viewTransactionHistory();
+
+</script>
+
+</body>
+</html>
